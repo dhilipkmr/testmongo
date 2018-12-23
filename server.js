@@ -1,9 +1,12 @@
+require('./config');
 var express = require('express');
-var app = express();
-var config = require('./config');
+
+var mongodb = require('mongodb');
 var db = require('./db');
 var model = require('./model');
 
+var app = express();
+var PORT = process.env.PORT;
 app.get('/test', function(request, response){
   model.users.find({id: 3}).then(function(res){
     var userInstance = new model.users({
@@ -23,7 +26,7 @@ app.get('/', function(request, response){
   response.send(html);
 });
 app.use(express.static(__dirname ));
-app.listen(process.env.PORT, function(){
+app.listen(PORT, function(){
   console.log('Server Started');
 });
 
